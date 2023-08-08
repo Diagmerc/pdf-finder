@@ -1,26 +1,17 @@
 package ru.lozovoi.pdffinder.utils;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.util.Assert;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-
-class FilesFinderTest {
-
-    String path = "C:\\Users\\User\\Desktop\\Short tests";
-
+class FilesFinderTest extends AbstractUtilTests {
     @Test
     void getAllPaths() throws IOException {
-        Path dir = Paths.get(path);
-        List<String> allPaths = new ArrayList<>();
-        Files.walk(dir).forEach(path -> allPaths.add(String.valueOf(path)));
-        Assert.notNull(allPaths, "Object is null");
+        List<String> allPaths = FilesFinder.getAllPaths(path);
+        Assert.notNull(allPaths, "Package is empty");
     }
 }

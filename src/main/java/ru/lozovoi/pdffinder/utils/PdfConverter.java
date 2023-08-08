@@ -2,26 +2,21 @@ package ru.lozovoi.pdffinder.utils;
 
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Component
 public class PdfConverter {
-
-    public PdfConverter(String path) {
-        this.file = path;
-    }
-
-    String file;
-    PDDocument document;
-    String VIN = "Идентификационный номер а/м";
-    String HWnum = "901 ";
-
-    {
+    static String VIN = "Идентификационный номер а/м";
+    static String HWnum = "901 ";
+    public static void convert(String file) {
         try {
-            document = PDDocument.load(new File(file));
+            PDDocument document = PDDocument.load(new File(file));
             PDFTextStripper stripper = new PDFTextStripper();
             String text = stripper.getText(document);
 
@@ -33,8 +28,9 @@ public class PdfConverter {
             Matcher matcherVIN = patternVIN.matcher(text);
 
 
-            matcherVIN.find();
-            System.out.println(text.substring(matcherVIN.start(), matcherVIN.end() + 20));
+            while (matcherVIN.find()) {
+                System.out.println(text.substring(matcherVIN.start(), matcherVIN.end() + 20));
+            }
             //ищем номера HW
             while (matcher.find()) {
                 System.out.println(text.substring(matcher.start(), matcher.end() + 20));
