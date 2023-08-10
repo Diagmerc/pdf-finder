@@ -6,15 +6,17 @@ import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Component
+@Component//todo clean this
 public class PdfConverter {
     static String VIN = "Идентификационный номер а/м";
     static String HWnum = "901 ";
-    public static void convert(String file) {
+
+    public static List<String> convert(String file) {
         try {
             PDDocument document = PDDocument.load(new File(file));
             PDFTextStripper stripper = new PDFTextStripper();
@@ -35,10 +37,11 @@ public class PdfConverter {
             while (matcher.find()) {
                 System.out.println(text.substring(matcher.start(), matcher.end() + 20));
             }
-
+            document.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+        return new ArrayList<>();
     }
 }
 
