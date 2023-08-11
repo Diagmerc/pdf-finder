@@ -15,21 +15,20 @@ import java.util.List;
 @Service
 public class RecordService {
 
-    PdfConverter pdfConverter;
-
     @Autowired
     VinDataDAO vinDataDAO;
     @Autowired
     HWNumberDAO hwNumberDAO;
 
-    public RecordService(PdfConverter pdfConverter) {
-        this.pdfConverter = pdfConverter;
-    }
-
     //todo clean this
     public void getResult(String path) throws IOException {
         List<String> allPaths = FilesFinder.getAllPaths(path);
-        allPaths.forEach(pdf -> pdfConverter.convert(pdf));
-
+        ArrayList<String> docs = new ArrayList<>();
+        allPaths.forEach(pdf -> docs.add(PdfConverter.convert(pdf).toString()));
+        for (String doc : docs) {
+            VinData vinData = new VinData();
+            vinData.setVin(doc);
+            vinDataDAO.save(vinData);
+        }
     }
 }

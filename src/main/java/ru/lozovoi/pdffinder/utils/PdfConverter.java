@@ -17,6 +17,7 @@ public class PdfConverter {
     static String HWnum = "901 ";
 
     public static List<String> convert(String file) {
+        ArrayList<String> vins = new ArrayList<>();
         try {
             PDDocument document = PDDocument.load(new File(file));
             PDFTextStripper stripper = new PDFTextStripper();
@@ -29,9 +30,9 @@ public class PdfConverter {
             Pattern patternVIN = Pattern.compile(VIN);
             Matcher matcherVIN = patternVIN.matcher(text);
 
-
             while (matcherVIN.find()) {
-                System.out.println(text.substring(matcherVIN.start(), matcherVIN.end() + 20));
+//                System.out.println(text.substring(matcherVIN.start(), matcherVIN.end() + 20));
+                vins.add(text.substring(matcherVIN.start(), matcherVIN.end() + 20));
             }
             //ищем номера HW
             while (matcher.find()) {
@@ -41,7 +42,7 @@ public class PdfConverter {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-        return new ArrayList<>();
+        return vins;
     }
 }
 
