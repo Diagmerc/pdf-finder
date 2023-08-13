@@ -8,7 +8,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PdfConverterTest extends AbstractUtilTests {
+class PdfConverterUtilTest extends AbstractUtilTests {
     @Test//todo this
     void convert() throws IOException {
     }

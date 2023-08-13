@@ -1,9 +1,13 @@
 package ru.lozovoi.pdffinder.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.List;
+
 @Entity
 @Table(name = "vin")
 @Getter
@@ -18,6 +22,7 @@ public class VinData {
 
     String vin;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "vin_id")
     List<HWNumber> hwNumbers;
 }

@@ -1,8 +1,11 @@
 package ru.lozovoi.pdffinder.model;
 
 
-import lombok.*;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 
 @Entity
@@ -18,4 +21,8 @@ public class HWNumber {
     long id;
 
     String number;
+
+    @ManyToOne
+    @JoinColumn(name = "hw_id")
+    VinData vinData;
 }
