@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "vin")
@@ -17,12 +18,20 @@ import java.util.List;
 public class VinData {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    long id;
+    String id;
 
-    String vin;
+    List<String> hwNumbers;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "vin_id")
-    List<HWNumber> hwNumbers;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        VinData vinData = (VinData) o;
+        return Objects.equals(id, vinData.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
