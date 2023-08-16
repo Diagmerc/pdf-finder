@@ -23,32 +23,7 @@ public class PdfConverterUtil {
             PDDocument document = PDDocument.load(new File(file));
             PDFTextStripper stripper = new PDFTextStripper();
             String text = stripper.getText(document);
-
-            Pattern pattern = Pattern.compile(HWnum);
-            Matcher matcherHW = pattern.matcher(text);
-
-            //ищем vin
-            Pattern patternVIN = Pattern.compile(VIN);
-            Matcher matcherVIN = patternVIN.matcher(text);
-
-            while (matcherVIN.find()) {
-//                System.out.println(text.substring(matcherVIN.start(), matcherVIN.end() + 20));
-
-                String substringVin = text.substring(matcherVIN.start() + 27, matcherVIN.end() + 20);
-                if (!substringVin.isEmpty()) {
-                    VinData vinData = new VinData();
-                    vinData.setId(substringVin);
-                    for (VinData vin : vins) {
-                        if (vin.equals(vinData)) {
-                            findHW(text, matcherHW, vinData);
-                            vins.add(vinData);
-                        }
-                    }
-                    //ищем номера HW
-                    findHW(text, matcherHW, vinData);
-                    vins.add(vinData);
-                }
-            }
+            //todo find here
             document.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -56,17 +31,15 @@ public class PdfConverterUtil {
         return vins;
     }
 
-    private static void findHW(String text, Matcher matcherHW, VinData vinData) {
-        while (matcherHW.find()) {
+    private static String find(String text, String key, Integer startTextSubstring, Integer endTextSubString) {
+        Pattern pattern = Pattern.compile(key);
+        Matcher matcher = pattern.matcher(text);
+        String substring = null;
+        while (matcher.find()) {
 //                System.out.println(text.substring(matcher.start(), matcher.end() + 20));
-            String substringHW = text.substring(matcherHW.start(), matcherHW.end() + 20);
-            if (vinData.getHwNumbers() == null) {
-                vinData.setHwNumbers(new ArrayList<>());
-                vinData.getHwNumbers().add(substringHW);
-            } else {
-                vinData.getHwNumbers().add(substringHW);
-            }
+            substring = text.substring(matcher.start() + startTextSubstring, matcher.end() + endTextSubString);
         }
+        return substring;
     }
 }
 

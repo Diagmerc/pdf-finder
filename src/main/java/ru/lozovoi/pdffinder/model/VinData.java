@@ -20,7 +20,8 @@ public class VinData {
     @Id
     String id;
 
-    List<String> hwNumbers;
+    @OneToMany
+    List<Doc> doc;
 
     @Override
     public boolean equals(Object o) {
