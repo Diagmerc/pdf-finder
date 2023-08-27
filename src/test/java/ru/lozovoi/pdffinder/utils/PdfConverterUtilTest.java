@@ -1,6 +1,6 @@
-package ru.lozovoi.pdffinder.utils;
-
-class PdfConverterUtilTest extends AbstractUtilTests {
-
-
-}
+//package ru.lozovoi.pdffinder.utils;
+//
+//class PdfConverterUtilTest extends AbstractUtilTests {
+//
+//
+//}

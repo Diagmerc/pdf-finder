@@ -23,7 +23,7 @@ public class RegexUtil {
     public String SPLIT_TO_DOC;
 
     public RegexUtil() throws IOException {
-        try (FileReader fileReader = new FileReader("settings.json")) {
+        try (FileReader fileReader = new FileReader("src/main/resources/settings.json")) {
             JSONParser jsonParser = new JSONParser();
             JSONObject jsonObject = (JSONObject) jsonParser.parse(fileReader);
             MILEAGE = (String) jsonObject.get("MILEAGE");
@@ -34,6 +34,7 @@ public class RegexUtil {
             SW = (String) jsonObject.get("SW");
             HWNUM = (String) jsonObject.get("HWNUM");
             SPLIT_TO_DOC = (String) jsonObject.get("SPLIT_TO_DOC");
+            VIN = (String) jsonObject.get("VIN");
         } catch (Exception e) {
             throw new IOException("There is no regex");
         }

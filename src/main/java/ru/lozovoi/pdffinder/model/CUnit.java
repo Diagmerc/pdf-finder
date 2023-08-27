@@ -27,4 +27,8 @@ public class CUnit {
     String bootloader;
 
     String scn;
+
+    String VIN;
+
+    String mileage;
 }
