@@ -1,5 +1,6 @@
 package ru.lozovoi.pdffinder.utils;
 
+import lombok.Data;
 import lombok.Getter;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -8,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.io.FileReader;
 import java.io.IOException;
 
-@Getter
+@Data
 public class RegexUtil {
 
     public String VIN;
@@ -19,7 +20,7 @@ public class RegexUtil {
     public String VARIANT_CU;
     public String CU;
     public String MILEAGE;
-
+    public String SPLIT_TO_DOC;
 
     public RegexUtil() throws IOException {
         try (FileReader fileReader = new FileReader("settings.json")) {
@@ -32,6 +33,7 @@ public class RegexUtil {
             SCN = (String) jsonObject.get("SCN");
             SW = (String) jsonObject.get("SW");
             HWNUM = (String) jsonObject.get("HWNUM");
+            SPLIT_TO_DOC = (String) jsonObject.get("SPLIT_TO_DOC");
         } catch (Exception e) {
             throw new IOException("There is no regex");
         }

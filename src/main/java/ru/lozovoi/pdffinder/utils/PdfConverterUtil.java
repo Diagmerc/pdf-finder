@@ -12,7 +12,7 @@ public class PdfConverterUtil {
         Matcher matcher = pattern.matcher(text);
         String substring = null;
         while (matcher.find()) {
-            substring = text.substring(matcher.start(), matcher.end());
+                substring = text.substring(matcher.start(), matcher.end());
         }
         return substring;
     }
