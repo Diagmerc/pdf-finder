@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import ru.lozovoi.pdffinder.service.RecordService;
 
 import java.io.IOException;
 
@@ -14,11 +13,7 @@ import java.io.IOException;
 @Controller("/")
 public class ViewController {
 
-    RecordService recordService;
 
-    public ViewController(RecordService recordService) {
-        this.recordService = recordService;
-    }
 
     @GetMapping
     public String view() {
@@ -29,7 +24,7 @@ public class ViewController {
     public String convert(Model model, @RequestParam String inputPath) throws IOException {
         log.info(inputPath);
         if (!inputPath.isEmpty()) {
-            recordService.getResult(inputPath);
+//            recordService.getResult(inputPath);
             model.addAttribute("done", "done");
         } else {
             model.addAttribute("done", "please enter path");
